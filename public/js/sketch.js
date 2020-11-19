@@ -239,12 +239,12 @@ function setup() {
 function draw() {
     background(bckColor)
     let user = createVector(mouseX, mouseY)
-    show3D()
+    //show3D()
     show2d()
     showPointsOfInterest(cities.length - 2)
     showFlatMap(pointsEarth, color(0, 255, 0))
     showVectorMap(pointsEarth, screenPointsEarth, color(255, 255, 255))
-    easycam.setCenter([0, 0, 0], 0.0);
+   // easycam.setCenter([0, 0, 0], 0.0);
 }
 
 function showFlatPointsOfInterest() {
@@ -272,7 +272,7 @@ function show3D() {
         //fill(30, 30, 30)
         sphere(r * 5, 6, 6);
 
-        fill(0, 0, 200);
+        fill(20, 100, 200);
         sphere(r - 5, 20, 20);
 
         ambientLight(60, 60, 60)
@@ -336,7 +336,7 @@ function show2d() {
     }
     // console.log(user.x , user.y)
     let testPoint2Ref = createVector(testPoint2.x, testPoint2.y)
-    easycam.beginHUD()
+
     if (isTouch) {
         fill(0, 0, 255, 100)
         circle(touchX, touchY, 50)
@@ -365,10 +365,13 @@ function show2d() {
         testTrackDevices.forEach(element => {
             if (element.inRange) {
                 element.show()
+                fill (200,0,0)
+                ellipse(element.smoothPosition.x + 100, element.smoothPosition.y + 100, 20,20)
+
+                text(element.uniqueId,element.smoothPosition.x + 100, element.smoothPosition.y + 100)
             }
         })
     }
-    easycam.endHUD()
 }
 
 // function calculateMaps
@@ -449,6 +452,7 @@ function showVectorMap(mapPoints, screenMapPoints, farbe) {
 
 function showFlatMap(mapPoints, farbe) {
     if (flatMapFlag) {
+        image(earthImg,0,0)
         let step = 15
         let lastLat
         let lastLong
